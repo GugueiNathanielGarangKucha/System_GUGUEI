@@ -1,6 +1,6 @@
 <?php
-include('includes/connect.php');
-include('functions/common_function.php');
+include('../includes/connect.php');
+include('../functions/common_function.php');
 session_start();
  ?>
 <!DOCTYPE html>
@@ -10,7 +10,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatiable" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecmmerce Webiste</title>
+    <title>User Page</title>
     <!--Bootstrap CSS link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -20,14 +20,22 @@ session_start();
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!--CSS-->
-    <link rel="stylesheet" href="css.css">
+    <link rel="stylesheet" href="../css.css">
 </head>
 <body>
+  <style media="screen">
+  .profile_img{
+    width: 90%;
+    margin: auto;
+    display: block;
+    height: 100%;
+  }
+  </style>
     <!--First-->
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-light bg-info">
             <div class="container-fluid">
-                <img src="./images/Logo.png" alt="" class="logo">
+                <img src="../images/Logo.png" alt="" class="logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -36,35 +44,25 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                            <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="display_all_products.php">Products</a>
-                        </li>
-              <?php
-                if (isset($_SESSION['username'])) {
-                  echo "<li class='nav-item'>
-                  <a class='nav-link' href='./user_area/profile.php'>My Account</a>
-                  </li>";
-                }
-                else {
-                  echo "<li class='nav-item'>
-                      <a class='nav-link' href='./user_area/user_registration.php'>Register</a>
-                  </li>";
-                }
-              ?>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="contact.php">Contact</a>
+                            <a class="nav-link" href="../display_all_products.php">Products</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i><sup> <?php cart_item(); ?> </sup></a>
+                            <a class="nav-link" href="user_registration.php">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../contact.php">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i><sup> <?php cart_item(); ?> </sup></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Total Price : <?php total_price(); ?> /= </a>
                         </li>
                     </ul>
-                    <form class="d-flex" action="search_product.php" method="get">
+                    <form class="d-flex" action="../search_product.php" method="get">
                         <input class="form-control me-2" type="search" placeholder="search_data" name="search_data" aria-label="Search">
                         <input type="submit" value="Search" class="btn btn-outline-light" name="search_data_product">
                     </form>
@@ -95,11 +93,11 @@ cart();
                     //login and logout
                       if (!isset($_SESSION['username'])) {
                         echo "<li class='nav-item'>
-                            <a class='nav-link' href='./user_area/user_login.php'>login</a>
+                            <a class='nav-link' href='user_login.php'>login</a>
                         </li>";
                       }else {
                         echo "<li class='nav-item'>
-                            <a class='nav-link' href='./user_area/user_logout.php'>logout</a>
+                            <a class='nav-link' href='user_logout.php'>logout</a>
                         </li>";
                       }
 
@@ -112,49 +110,57 @@ cart();
             <h3 class="text-center">Gugues Store</h3>
             <p class="text-center">Communication is at the heart of E-commerce and community </p>
         </div>
+<!-- four -->
+<div class="row">
+  <div class="col-md-2 p-0">
+    <div class="navbar-nav bg-secondary text-center">
+      <li class="nav-item bg-info">
+          <a class="nav-link text-light" href="#"><h4>Your Profile</h4></a>
+      </li>
+      <?php
+      $username=$_SESSION['username'];
+      $user_image="Select * from user_table where username='$username'";
+      $result=mysqli_query($con,$user_image);
+      $row_image=mysqli_fetch_assoc($result);
+      $user_image=$row_image['user_image'];
+      echo "<li class='nav-item'>
+          <img src='./user_images/$user_image' class='profile_img''>
+      </li>";
 
-
-<!--Fourth-->
-        <div class="row px-1">
-            <div class="col-md-10">
-                <!--Products-->
-                <div class="row">
-                  <!--fetching products-->
-                  <?php
-                    getproducts();
-                    get_unique_catergories();
-                    get_unique_brands();
-                    // $ip = getIPAddress();
-                    // echo 'User Real IP Address - '.$ip;
-
-                   ?>
-                    <!--row end-->
-                </div>
-                <!--col end-->
-            </div>
-            <div class="col-md-2 bg-secondary p-0">
-                <!--BRANDS TO BE DISPLAYED-->
-                <ul class="navbar-nav me-auto text-center">
-                    <li class="nav-item bg-info">
-                        <a href="#" class="nav-link text-light"><h4>Delivery Brands</h4></a>
-                    </li>
-                    <?php
-                      getbrands();
-                     ?>
-                </ul>
-                <!--Catergories to be displayed-->
-                <ul class="navbar-nav me-auto text-center">
-                    <li class="nav-item bg-info">
-                        <a href="#" class="nav-link text-light">
-                            <h4>Catergories</h4>
-                        </a>
-                    </li>
-                    <?php
-                      getcatergories();
-                     ?>
-                </ul>
-            </div>
+       ?>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="profile.php">Pending Orders</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="profile.php?my_orders">My Orders</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="profile.php?delete_account">Delete Account</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" href="user_logout.php">Logout</a>
+        </li>
         </div>
+    </div>
+    <div class="col-md-10 text-center">
+      <?php
+      get_user_order_details();
+
+       ?>
+      <?php
+      get_user_order_details();
+      if (isset($_GET['my_orders'])) {
+        include('user_orders.php');
+      }
+       ?>
+       <?php
+       if (isset($_GET['delete_account'])) {
+         include('delete_account.php');
+       }
+        ?>
+    </div>
+</div>
+
 
 
 <!--footer-->

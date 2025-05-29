@@ -9,7 +9,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact page</title>
+    <title>Contact Us - Gugues Store</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css.css"> <style>
@@ -85,18 +85,10 @@ session_start();
                         <li class="nav-item">
                             <a class="nav-link" href="display_all_products.php">Products</a>
                         </li>
-                        <?php
-                          if (isset($_SESSION['username'])) {
-                            echo "<li class='nav-item'>
-                            <a class='nav-link' href='./user_area/profile.php'>My Account</a>
-                            </li>";
-                          }
-                          else {
-                            echo "<li class='nav-item'>
-                                <a class='nav-link' href='./user_area/user_registration.php'>Register</a>
-                            </li>";
-                          }
-                        ?><li class="nav-item">
+                        <li class="nav-item">
+                            <a class="nav-link" href="./user_area/user_registration.php">Register</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="contact.php">Contact</a>
                         </li>
                         <li class="nav-item">
@@ -136,15 +128,15 @@ session_start();
             <div class="row">
                 <div class="col-md-4">
                     <div class="contact-info">
-                        <h2 class="text-info">Contact Information</h2>
+                        <h2>Contact Information</h2>
                         <ul>
-                            <li><i class="fas fa-map-marker-alt"></i>Bugema, Kampala,Uganda</li>
-                            <li><i class="fas fa-phone"></i>+256 783979793</li>
+                            <li><i class="fas fa-map-marker-alt"></i> 123 Main Street, Anytown, USA</li>
+                            <li><i class="fas fa-phone"></i> (123) 456-7890</li>
                             <li><i class="fas fa-envelope"></i> info@guguesstore.com</li>
                             <li><i class="fas fa-globe"></i> www.guguesstore.com</li>
                         </ul>
                         <hr>
-                        <h2 class="text-info">Follow Us</h2>
+                        <h2>Follow Us</h2>
                         <ul>
                             <li><i class="fab fa-facebook"></i> <a href="#" target="_blank">Facebook</a></li>
                             <li><i class="fab fa-twitter"></i> <a href="#" target="_blank">Twitter</a></li>
@@ -155,8 +147,8 @@ session_start();
 
                 <div class="col-md-8">
                     <div class="contact-form">
-                        <h2 class="text-info">Send us a Message</h2>
-                        <form action="#send_contact_form.php" method="post">
+                        <h2>Send us a Message</h2>
+                        <form action="send_contact_form.php" method="post">
                             <div class="form-group">
                                 <label for="name">Your Name</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
@@ -173,7 +165,7 @@ session_start();
                                 <label for="message">Your Message</label>
                                 <textarea class="form-control" id="message" name="message" rows="5" placeholder="Enter your message" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-info">Send Message</button>
+                            <button type="submit" class="btn btn-primary">Send Message</button>
                         </form>
                     </div>
                 </div>

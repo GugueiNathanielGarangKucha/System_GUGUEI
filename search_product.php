@@ -11,7 +11,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatiable" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search page</title>
+    <title>Ecmmerce Webiste</title>
     <!--Bootstrap CSS link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -42,18 +42,9 @@ session_start();
                         <li class="nav-item">
                             <a class="nav-link" href="display_all_products.php">Products</a>
                         </li>
-                        <?php
-                          if (isset($_SESSION['username'])) {
-                            echo "<li class='nav-item'>
-                            <a class='nav-link' href='./user_area/profile.php'>My Account</a>
-                            </li>";
-                          }
-                          else {
-                            echo "<li class='nav-item'>
-                                <a class='nav-link' href='./user_area/user_registration.php'>Register</a>
-                            </li>";
-                          }
-                        ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="user_registration.php">Register</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="cc">Contact</a>
                         </li>

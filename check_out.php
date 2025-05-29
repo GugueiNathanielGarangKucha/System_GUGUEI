@@ -1,6 +1,5 @@
 <?php
-include('includes/connect.php');
-include('functions/common_function.php');
+
 session_start();
  ?>
 <!DOCTYPE html>
@@ -10,7 +9,7 @@ session_start();
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatiable" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecmmerce Webiste</title>
+    <title>Check Out Page</title>
     <!--Bootstrap CSS link -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -27,7 +26,7 @@ session_start();
     <div class="container-fluid p-0">
         <nav class="navbar navbar-expand-lg navbar-light bg-info">
             <div class="container-fluid">
-                <img src="./images/Logo.png" alt="" class="logo">
+                <img src="../images/Logo.png" alt="" class="logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -36,32 +35,25 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+                            <a class="nav-link active" aria-current="page" href="../index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="display_all_products.php">Products</a>
+                            <a class="nav-link" href="../display_all_products.php">Products</a>
                         </li>
-              <?php
-                if (isset($_SESSION['username'])) {
-                  echo "<li class='nav-item'>
-                  <a class='nav-link' href='./user_area/profile.php'>My Account</a>
-                  </li>";
-                }
-                else {
-                  echo "<li class='nav-item'>
-                      <a class='nav-link' href='./user_area/user_registration.php'>Register</a>
-                  </li>";
-                }
-              ?>
-
+                        <?php
+                          if (isset($_SESSION['username'])) {
+                            echo "<li class='nav-item'>
+                            <a class='nav-link' href='profile.php'>My Account</a>
+                            </li>";
+                          }
+                          else {
+                            echo "<li class='nav-item'>
+                                <a class='nav-link' href='./user_area/user_registration.php'>Register</a>
+                            </li>";
+                          }
+                        ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="contact.php">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="cart.php"><i class="fa fa-shopping-cart" aria-hidden="true"></i><sup> <?php cart_item(); ?> </sup></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Total Price : <?php total_price(); ?> /= </a>
+                            <a class="nav-link" href="../contact.php">Contact</a>
                         </li>
                     </ul>
                     <form class="d-flex" action="search_product.php" method="get">
@@ -71,16 +63,11 @@ session_start();
                 </div>
             </div>
         </nav>
-<!--calling cart function-->
-<?php
-cart();
- ?>
 
 <!--Second -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
-
                     <?php
                     //displaying user name
                     if (!isset($_SESSION['username'])) {
@@ -95,11 +82,11 @@ cart();
                     //login and logout
                       if (!isset($_SESSION['username'])) {
                         echo "<li class='nav-item'>
-                            <a class='nav-link' href='./user_area/user_login.php'>login</a>
+                            <a class='nav-link' href='user_login.php'>login</a>
                         </li>";
                       }else {
                         echo "<li class='nav-item'>
-                            <a class='nav-link' href='./user_area/user_logout.php'>logout</a>
+                            <a class='nav-link' href='user_logout.php'>logout</a>
                         </li>";
                       }
 
@@ -107,55 +94,30 @@ cart();
                 </li>
             </ul>
         </nav>
-<!--Third-->
-        <div class="bg-light">
-            <h3 class="text-center">Gugues Store</h3>
-            <p class="text-center">Communication is at the heart of E-commerce and community </p>
-        </div>
 
+  <!-- third -->
+      <div class="bg-light">
+        <h3 class="text-center">Gugues Store</h3>
+        <p class="text-center">Communication is at the heart of E-commerce and community </p>
+      </div>
 
-<!--Fourth-->
-        <div class="row px-1">
-            <div class="col-md-10">
-                <!--Products-->
-                <div class="row">
-                  <!--fetching products-->
-                  <?php
-                    getproducts();
-                    get_unique_catergories();
-                    get_unique_brands();
-                    // $ip = getIPAddress();
-                    // echo 'User Real IP Address - '.$ip;
-
-                   ?>
-                    <!--row end-->
-                </div>
-                <!--col end-->
-            </div>
-            <div class="col-md-2 bg-secondary p-0">
-                <!--BRANDS TO BE DISPLAYED-->
-                <ul class="navbar-nav me-auto text-center">
-                    <li class="nav-item bg-info">
-                        <a href="#" class="nav-link text-light"><h4>Delivery Brands</h4></a>
-                    </li>
+  <!--Fourth-->
+          <div class="row px-1">
+              <div class="col-md-12">
+                  <!--Products-->
+                  <div class="row">
                     <?php
-                      getbrands();
+                    if (!isset($_SESSION['username'])){
+                      include('user_login.php');
+                    } else
+                     {
+                    include('payment.php');
+                    }
                      ?>
-                </ul>
-                <!--Catergories to be displayed-->
-                <ul class="navbar-nav me-auto text-center">
-                    <li class="nav-item bg-info">
-                        <a href="#" class="nav-link text-light">
-                            <h4>Catergories</h4>
-                        </a>
-                    </li>
-                    <?php
-                      getcatergories();
-                     ?>
-                </ul>
-            </div>
-        </div>
-
+                  </div>
+                  <!--col end-->
+              </div>
+          </div>
 
 <!--footer-->
         <div class="bg-info p-3 text-center">
